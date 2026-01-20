@@ -5,7 +5,7 @@ import { Atom, Users, MapPin, Award, Globe, Calendar, ChevronRight, Zap, FlaskCo
 
 export default function CanadaManhattanProject() {
   const [activeSection, setActiveSection] = useState('overview');
-  const [nukePhase, setNukePhase] = useState<'idle' | 'falling' | 'exploded'>('idle');
+  const [nukePhase, setNukePhase] = useState<'idle' | 'falling' | 'exploded' | 'fading'>('idle');
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -109,11 +109,33 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
     return () => window.removeEventListener('keydown', handleEscape);
   }, [selectedCard]);
 
+  // Auto-fade back to normal after explosion
+  useEffect(() => {
+    if (nukePhase === 'exploded') {
+      // Wait for explosion to finish (4s mushroom animation) + 1s pause, then fade back
+      const fadeTimer = setTimeout(() => {
+        setNukePhase('fading');
+        // Complete fade transition after 2s
+        const resetTimer = setTimeout(() => {
+          setNukePhase('idle');
+        }, 2000);
+        return () => clearTimeout(resetTimer);
+      }, 6000); // 4s explosion + 1s pause + 1s buffer
+      return () => clearTimeout(fadeTimer);
+    }
+  }, [nukePhase]);
+
   return (
-    <div className={`min-h-screen bg-white text-slate-900 overflow-hidden ${nukePhase === 'falling' ? 'overflow-visible' : ''} ${nukePhase === 'exploded' ? 'nuke-bg-explosion' : ''}`}>
+    <div className={`min-h-screen bg-white text-slate-900 overflow-hidden ${nukePhase === 'falling' ? 'overflow-visible' : ''}`}>
       <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-100"></div>
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(0,0,0,0.03),transparent_50%)]"></div>
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(0,0,0,0.02),transparent_50%)]"></div>
+      
+      {/* Explosion overlay that fades out */}
+      {(nukePhase === 'exploded' || nukePhase === 'fading') && (
+        <div className={`fixed inset-0 z-30 pointer-events-none ${nukePhase === 'fading' ? 'fade-out' : ''}`} style={{background: 'radial-gradient(circle, rgba(255, 200, 0, 0.4) 0%, rgba(255, 100, 0, 0.2) 30%, rgba(0, 0, 0, 0.1) 100%)'}}>
+        </div>
+      )}
       
       {/* Falling Bomb/Missile */}
       {nukePhase === 'falling' && (
