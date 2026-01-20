@@ -17,6 +17,7 @@ export default function CanadaManhattanProject() {
     { id: 'chalkriver', title: 'Chalk River', icon: FlaskConical },
     { id: 'postwar', title: 'Post-War Era', icon: MapPin },
     { id: 'nonproliferation', title: 'Non-Proliferation', icon: Globe },
+    { id: 'sources', title: 'Sources', icon: Globe }
   ];
 
   const cardDetails: Record<string, { title: string; content: string }> = {
@@ -768,7 +769,110 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
               </div>
             </div>
           )}
-        </main>
+          {activeSection === 'sources' && (
+            <div className="space-y-8 animate-slideIn">
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+
+                <div className="relative bg-white rounded-3xl p-12 border border-slate-200 shadow-xl">
+                  <h2 className="text-5xl font-black mb-6 text-slate-900">
+                    Sources & References
+                  </h2>
+                  <div className="h-1 w-24 bg-slate-900 rounded-full mb-8"></div>
+
+                  <p className="text-lg text-slate-700 leading-relaxed mb-8">
+                    This project is based on publicly available historical and educational sources.
+                    No proprietary or classified information is used. All interpretations are presented
+                    for educational purposes only.
+                  </p>
+
+                  <ul className="space-y-5 text-slate-700 text-lg">
+                    <li>
+                      • <strong>Wikipedia</strong> — <em>Chalk River Laboratories</em><br />
+                      <a
+                        href="https://en.wikipedia.org/wiki/Chalk_River_Laboratories"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://en.wikipedia.org/wiki/Chalk_River_Laboratories
+                      </a>
+                    </li>
+
+                    <li>
+                      • <strong>The Canadian Encyclopedia</strong> — <em>Canada and the Manhattan Project</em><br />
+                      <a
+                        href="https://thecanadianencyclopedia.ca/en/article/canada-and-the-manhattan-project"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://thecanadianencyclopedia.ca/en/article/canada-and-the-manhattan-project
+                      </a>
+                    </li>
+
+                    <li>
+                      • <strong>Canadian Nuclear Safety Commission</strong> — <em>Canada’s Contribution to Nuclear Weapons Development</em><br />
+                      <a
+                        href="https://www.cnsc-ccsn.gc.ca/eng/resources/fact-sheets/canadas-contribution-to-nuclear-weapons-development/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://www.cnsc-ccsn.gc.ca/eng/resources/fact-sheets/canadas-contribution-to-nuclear-weapons-development/
+                      </a>
+                    </li>
+
+                    <li>
+                      • <strong>Canadian Nuclear Safety Commission</strong> — <em>History of the CNSC</em><br />
+                      <a
+                        href="https://www.cnsc-ccsn.gc.ca/eng/about-us/history/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://www.cnsc-ccsn.gc.ca/eng/about-us/history/
+                      </a>
+                    </li>
+
+                    <li>
+                      • <strong>CBC News</strong> — <em>How Canada Supplied Uranium for the Manhattan Project</em><br />
+                      <a
+                        href="https://www.cbc.ca/documentaries/how-canada-supplied-uranium-for-the-manhattan-project-1.7402051"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://www.cbc.ca/documentaries/how-canada-supplied-uranium-for-the-manhattan-project-1.7402051
+                      </a>
+                    </li>
+
+                    <li>
+                      • <strong>Wikipedia</strong> — <em>Canada and Weapons of Mass Destruction</em><br />
+                      <a
+                        href="https://en.wikipedia.org/wiki/Canada_and_weapons_of_mass_destruction"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://en.wikipedia.org/wiki/Canada_and_weapons_of_mass_destruction
+                      </a>
+                    </li>
+                  </ul>
+
+                  <div className="mt-10 bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      © Content compiled for educational use. All trademarks, names, and references
+                      remain the property of their respective owners.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          </main>
+
 
         <footer className={`border-t border-slate-200 backdrop-blur-xl bg-white bg-opacity-80 mt-24 ${nukePhase === 'exploded' ? 'explosion-item' : ''}`} style={{...getExplosionStyle(3)}}>
           <div className="max-w-7xl mx-auto px-6 py-12 text-center">
