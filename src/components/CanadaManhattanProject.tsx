@@ -3,6 +3,22 @@
 import React, { useState, useEffect } from 'react';
 import { Atom, Users, MapPin, Award, Globe, Calendar, ChevronRight, Zap, FlaskConical } from 'lucide-react';
 
+function ImageBlock({ src, caption }: { src: string; caption: string }) {
+  return (
+    <figure className="space-y-3">
+      <img
+        src={src}
+        alt={caption}
+        className="rounded-xl border border-slate-200 shadow-md w-full h-auto"
+      />
+      <figcaption className="text-sm text-slate-600 leading-relaxed">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+
 export default function CanadaManhattanProject() {
   const [activeSection, setActiveSection] = useState('overview');
   const [nukePhase, setNukePhase] = useState<'idle' | 'falling' | 'exploded' | 'fading'>('idle');
@@ -14,6 +30,7 @@ export default function CanadaManhattanProject() {
     { id: 'background', title: 'Background', icon: Calendar },
     { id: 'tubealloys', title: 'Tube Alloys', icon: Users },
     { id: 'contributions', title: 'Contributions', icon: Award },
+    { id: 'images', title: 'Images', icon: Globe },
     { id: 'chalkriver', title: 'Chalk River', icon: FlaskConical },
     { id: 'postwar', title: 'Post-War Era', icon: MapPin },
     { id: 'nonproliferation', title: 'Non-Proliferation', icon: Globe },
@@ -626,6 +643,45 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
             </div>
           )}
 
+          {activeSection === 'images' && (
+            <div className="space-y-10 animate-slideIn">
+              <div className="bg-white rounded-3xl p-12 border border-slate-200 shadow-xl">
+                <h2 className="text-5xl font-black mb-6 text-slate-900">
+                  Historical Images
+                </h2>
+                <div className="h-1 w-24 bg-slate-900 rounded-full mb-10"></div>
+
+                <div className="grid md:grid-cols-2 gap-10">
+                  <ImageBlock
+                    src="/images/chalk-river-laboratories-1945.jpg"
+                    caption="Chalk River Laboratories, Ontario (1945). Canada’s primary nuclear research facility during and after World War II."
+                  />
+
+                  <ImageBlock
+                    src="/images/montreal-laboratory.jpg"
+                    caption="The Montreal Laboratory (1943), a joint Canadian–British nuclear research center later integrated into the Manhattan Project."
+                  />
+
+                  <ImageBlock
+                    src="/images/little-boy.jpg"
+                    caption="“Little Boy,” the atomic bomb used on Hiroshima in 1945, shown here for historical context."
+                  />
+
+                  <ImageBlock
+                    src="/images/uranium-mining.jpg"
+                    caption="Uranium mining in Canada during the post-war period, supporting nuclear research and energy development."
+                  />
+
+                  <ImageBlock
+                    src="/images/michael-stewart.jpeg"
+                    caption="British Foreign Secretary Michael Stewart during Nuclear Non-Proliferation Treaty era negotiations."
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+
           {activeSection === 'chalkriver' && (
             <div className="space-y-8 animate-slideIn">
               <div className="relative group">
@@ -859,18 +915,51 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                       </a>
                     </li>
                   </ul>
+                  <h3 className="text-2xl font-bold text-slate-900 mt-12 mb-4">
+                    Image Credits
+                  </h3>
 
+                  <ul className="space-y-4 text-slate-700 text-lg">
+                    <li>
+                      • <strong>Chalk River Laboratories (1945)</strong> — Wikipedia  
+                      <br />
+                      https://en.wikipedia.org/wiki/Chalk_River_Laboratories
+                    </li>
+
+                    <li>
+                      • <strong>Montreal Laboratory</strong> — Nuclear Heritage Project  
+                      <br />
+                      https://nuclearheritage.com/the-establishment-of-the-montreal-laboratories-and-the-evolution-to-chalk-river/
+                    </li>
+
+                    <li>
+                      • <strong>“Little Boy” Atomic Bomb</strong> — Wikipedia  
+                      <br />
+                      https://en.wikipedia.org/wiki/Little_Boy
+                    </li>
+
+                    <li>
+                      • <strong>Uranium Mining in Canada</strong> — Public domain / educational use  
+                    </li>
+
+                    <li>
+                      • <strong>Michael Stewart & Nuclear Non-Proliferation Treaty</strong> — Encyclopaedia Britannica  
+                      <br />
+                      https://www.britannica.com/event/Treaty-on-the-Non-proliferation-of-Nuclear-Weapons
+                    </li>
+                  </ul>
                   <div className="mt-10 bg-slate-50 rounded-2xl p-6 border border-slate-200">
                     <p className="text-sm text-slate-600 leading-relaxed">
                       © Content compiled for educational use. All trademarks, names, and references
                       remain the property of their respective owners.
                     </p>
                   </div>
+
                 </div>
               </div>
             </div>
           )}
-          
+
           </main>
 
 
