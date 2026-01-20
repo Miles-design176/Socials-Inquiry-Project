@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Atom, Users, MapPin, Award, Globe, Calendar, ChevronRight, Zap, FlaskConical } from 'lucide-react';
 
 function ImageBlock({ src, caption }: { src: string; caption: string }) {
@@ -24,6 +24,9 @@ export default function CanadaManhattanProject() {
   const [nukePhase, setNukePhase] = useState<'idle' | 'falling' | 'exploded' | 'fading'>('idle');
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const navScrollRef = useRef<HTMLDivElement>(null);
 
   const sections = [
     { id: 'overview', title: 'Overview', icon: Atom },
@@ -127,6 +130,29 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
     return () => window.removeEventListener('keydown', handleEscape);
   }, [selectedCard]);
 
+    // Handle scroll arrows visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = navScrollRef.current;
+        setShowLeftArrow(scrollLeft > 10);
+        setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+      }
+    };
+
+    const navElement = navScrollRef.current;
+    if (navElement) {
+      navElement.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+    }
+
+    return () => {
+      if (navElement) {
+        navElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   // Auto-fade back to normal after explosion
   useEffect(() => {
     if (nukePhase === 'exploded') {
@@ -142,6 +168,16 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
       return () => clearTimeout(fadeTimer);
     }
   }, [nukePhase]);
+
+  const scrollNav = (direction: 'left' | 'right') => {
+    if (navScrollRef.current) {
+      const scrollAmount = 300;
+      navScrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <div className={`min-h-screen bg-white text-slate-900 overflow-hidden ${nukePhase === 'falling' ? 'overflow-visible' : ''}`}>
@@ -384,13 +420,12 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                   setTimeout(() => setNukePhase('exploded'), 1800);
                 }}>
                   <div className="absolute inset-0 bg-slate-900 blur-xl opacity-20 animate-pulse group-hover:opacity-40 transition-opacity"></div>
-                  <Atom className="w-14 h-14 text-slate-900 relative group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  <Atom className="w-10 h-10 md:w-14 md:h-14 text-slate-900 relative group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                 </div>
-                <div>
-                  <h1 className="text-5xl font-black tracking-tight text-slate-900">
+                <div>                  <h1 className="text-2xl md:text-5xl font-black tracking-tight text-slate-900">
                     Canada & the Manhattan Project
                   </h1>
-                  <p className="text-slate-600 text-sm mt-2 font-light tracking-wide">
+                  <p className="text-slate-600 text-xs md:text-sm mt-1 md:mt-2 font-light tracking-wide">
                     Canada in nuclear history: 1896–1970
                   </p>
                 </div>
@@ -400,23 +435,48 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
         </header>
 
         <nav className={`sticky top-0 z-50 backdrop-blur-2xl bg-white bg-opacity-90 border-b border-slate-200 ${nukePhase === 'exploded' ? 'explosion-item' : ''}`} style={{...getExplosionStyle(1)}}>
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex gap-1 py-3 overflow-x-auto scrollbar-hide">
-              {sections.map((section) => {
+          <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
+            {/* Left Arrow */}
+            <button
+              onClick={() => scrollNav('left')}
+              className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm hover:bg-slate-100 p-2 rounded-full shadow-lg border border-slate-200 transition-all duration-300 ${
+                showLeftArrow ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 pointer-events-none'
+              }`}
+              aria-label="Scroll left"
+            >
+              <svg className="w-5 h-5 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => scrollNav('right')}
+              className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm hover:bg-slate-100 p-2 rounded-full shadow-lg border border-slate-200 transition-all duration-300 ${
+                showRightArrow ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'
+              }`}
+              aria-label="Scroll right"
+            >
+              <svg className="w-5 h-5 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            <div ref={navScrollRef} className="flex gap-1 py-3 overflow-x-auto scrollbar-hide pb-4 md:pb-3 px-12">              {sections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
                 return (
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`relative flex items-center gap-2 px-6 py-3 rounded-full whitespace-nowrap transition-all duration-300 group ${
+                    className={`relative flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 rounded-full whitespace-nowrap transition-all duration-300 group flex-shrink-0 ${
                       isActive
                         ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
-                    <span className="font-medium text-sm">{section.title}</span>
+                    <span className="font-medium text-xs md:text-sm">{section.title}</span>
                   </button>
                 );
               })}
@@ -424,7 +484,7 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
           </div>
         </nav>
 
-        <main className={`max-w-7xl mx-auto px-6 py-16 ${nukePhase === 'exploded' ? 'explosion-item' : ''}`} style={{...getExplosionStyle(2)}}>
+        <main className={`max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-16 ${nukePhase === 'exploded' ? 'explosion-item' : ''}`} style={{...getExplosionStyle(2)}}>
           {activeSection === 'overview' && (
             <div className="space-y-8 animate-slideIn">
               <div className="relative group">
@@ -921,32 +981,65 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
 
                   <ul className="space-y-4 text-slate-700 text-lg">
                     <li>
-                      • <strong>Chalk River Laboratories (1945)</strong> — Wikipedia  
-                      <br />
-                      https://en.wikipedia.org/wiki/Chalk_River_Laboratories
+                      • <strong>Chalk River Laboratories</strong> — <em>Wikipedia</em><br />
+                      <a
+                        href="https://en.wikipedia.org/wiki/Chalk_River_Laboratories"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://en.wikipedia.org/wiki/Chalk_River_Laboratories
+                      </a>
                     </li>
 
                     <li>
-                      • <strong>Montreal Laboratory</strong> — Nuclear Heritage Project  
-                      <br />
-                      https://nuclearheritage.com/the-establishment-of-the-montreal-laboratories-and-the-evolution-to-chalk-river/
+                      • <strong>Montreal Laboratory</strong> — <em>Nuclear Heritage Project</em><br />
+                      <a
+                        href="https://nuclearheritage.com/the-establishment-of-the-montreal-laboratories-and-the-evolution-to-chalk-river/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://nuclearheritage.com/the-establishment-of-the-montreal-laboratories-and-the-evolution-to-chalk-river/
+                      </a>
                     </li>
 
                     <li>
-                      • <strong>“Little Boy” Atomic Bomb</strong> — Wikipedia  
-                      <br />
-                      https://en.wikipedia.org/wiki/Little_Boy
+                      • <strong>“Little Boy” Atomic Bomb</strong> — <em>Los Alamos National Laboratory</em><br />
+                      <a
+                        href="https://www.lanl.gov/media/publications/national-security-science/0720-why-wasnt-little-boy-tested"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://www.lanl.gov/media/publications/national-security-science/0720-why-wasnt-little-boy-tested
+                      </a>
                     </li>
 
                     <li>
-                      • <strong>Uranium Mining in Canada</strong> — Public domain / educational use  
+                      • <strong>Uranium Mining in Canada</strong> — <em>Wikipedia</em><br />
+                      <a
+                        href="https://en.wikipedia.org/wiki/Uranium_mining_in_Canada"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://en.wikipedia.org/wiki/Uranium_mining_in_Canada
+                      </a>
                     </li>
 
                     <li>
-                      • <strong>Michael Stewart & Nuclear Non-Proliferation Treaty</strong> — Encyclopaedia Britannica  
-                      <br />
-                      https://www.britannica.com/event/Treaty-on-the-Non-proliferation-of-Nuclear-Weapons
+                      • <strong>Michael Stewart & Nuclear Non-Proliferation Treaty</strong> — <em>Encyclopaedia Britannica</em><br />
+                      <a
+                        href="https://www.britannica.com/event/Treaty-on-the-Non-proliferation-of-Nuclear-Weapons"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-slate-900 hover:text-slate-600"
+                      >
+                        https://www.britannica.com/event/Treaty-on-the-Non-proliferation-of-Nuclear-Weapons
+                        </a>
                     </li>
+
                   </ul>
                   <div className="mt-10 bg-slate-50 rounded-2xl p-6 border border-slate-200">
                     <p className="text-sm text-slate-600 leading-relaxed">
