@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Canada & the Manhattan Project",
   description: "An exploration of Canada's pivotal role in nuclear history from 1896–1970",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export const viewport: Viewport = {
