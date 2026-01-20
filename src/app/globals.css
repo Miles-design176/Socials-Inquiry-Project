@@ -43,7 +43,245 @@
   }
 }
 
+@keyframes bombFall {
+  0% {
+    top: -150px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  100% {
+    top: 60vh;
+    opacity: 0;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pixelBurst {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--px), var(--py)) scale(0) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes shockwaveEffect {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+    border: 3px solid rgba(255, 200, 0, 1);
+  }
+  100% {
+    width: 1000px;
+    height: 1000px;
+    opacity: 0;
+    border: 3px solid rgba(255, 100, 0, 0);
+  }
+}
+
+@keyframes dustRise {
+  0% {
+    transform: translateY(100px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+
+@keyframes whiteFlash {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes orangeFlash {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes coreGlow {
+  0% {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes atmosphereWave {
+  0% {
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+  20% {
+    backdrop-filter: blur(8px);
+    opacity: 1;
+  }
+  100% {
+    backdrop-filter: blur(0px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-scaleIn {
+    animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--explode-x), var(--explode-y)) scale(0.3) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes nukeFlashIntense {
+  0% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  5% {
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+  15% {
+    background-color: rgba(255, 200, 0, 1);
+  }
+  30% {
+    background-color: rgba(255, 100, 0, 0.9);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes mushroom {
+  0% {
+    transform: scale(0) translateY(300px);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  8% {
+    opacity: 1;
+    filter: blur(15px);
+    transform: scale(0.2) translateY(250px);
+  }
+  20% {
+    transform: scale(0.5) translateY(180px);
+    opacity: 1;
+    filter: blur(10px);
+  }
+  35% {
+    transform: scale(0.8) translateY(100px);
+    opacity: 0.98;
+    filter: blur(5px);
+  }
+  50% {
+    transform: scale(1.15) translateY(20px);
+    opacity: 0.95;
+    filter: blur(2px);
+  }
+  65% {
+    transform: scale(1.35) translateY(-30px);
+    opacity: 0.9;
+    filter: blur(1px);
+  }
+  80% {
+    transform: scale(1.5) translateY(-80px);
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+  100% {
+    transform: scale(1.6) translateY(-120px);
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
+
+@layer utilities {
+  .bomb-falling {
+    animation: bombFall 1.8s ease-in forwards;
+  }
+
+  .bomb-hidden {
+    opacity: 0;
+  }
+
+  .pixel-particle {
+    animation: pixelBurst var(--duration, 2.5s) ease-out forwards;
+    animation-delay: var(--delay);
+  }
+
+  .shockwave {
+    animation: shockwaveEffect 0.8s ease-out forwards;
+  }
+
+  .explosion-container {
+    animation: nukeFlashIntense 1.5s ease-out;
+  }
+
+  .explosion-item {
+    animation: explosion 1.5s ease-out forwards !important;
+  }
+
+  .nuke-bg-explosion {
+    background: radial-gradient(circle, rgba(255, 200, 0, 0.4) 0%, rgba(255, 100, 0, 0.2) 30%, rgba(0, 0, 0, 0.1) 100%);
+  }
+
+  .mushroom-cloud {
+    animation: mushroom 4s ease-out forwards;
+  }
+
   .animate-slideIn {
     animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
