@@ -619,6 +619,18 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                   </div>
                 </div>
               </div>
+              <div className="relative group mt-8">
+                <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                  <h3 className="text-3xl font-bold text-slate-900 mb-4">Historical Perspectives</h3>
+                  <p className="text-slate-700 leading-relaxed">
+                    Different groups viewed Canada’s nuclear research and contributions in different ways. 
+                    Scientists saw an exciting scientific breakthrough, while governments focused on national security and wartime needs. 
+                    Mining communities welcomed economic opportunities from uranium production. 
+                    Later generations reflect on these developments with ethical and environmental concerns, showing how perspectives on historical events can evolve over time.
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
@@ -664,6 +676,17 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                     </p>
                   </div>
                 </div>
+                <div className="relative group mt-8">
+                <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                  <h3 className="text-3xl font-bold text-slate-900 mb-4">Cause and Consequence</h3>
+                  <p className="text-slate-700 leading-relaxed">
+                    The Tube Alloys project was caused by fears that Nazi Germany might develop atomic weapons first, combined with wartime pressures. 
+                    Limited British resources led to collaboration with Canada and the United States. 
+                    The consequence was the creation of the Manhattan Project, which permanently changed the nature of warfare and international science.
+                  </p>
+                </div>
+              </div>
               </div>
             </div>
           )}
@@ -697,6 +720,16 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                       title="Research & Facilities"
                       description="Canada provided many researchers and scientists, as well as key facilities for research and production."
                     />
+                  </div>
+                </div>
+                <div className="relative group mt-8">
+                  <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                  <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                    <h3 className="text-3xl font-bold text-slate-900 mb-4">Historical Significance</h3>
+                    <p className="text-slate-700 leading-relaxed">
+                      Canada’s contributions were historically significant because they were essential to the success of the Manhattan Project. 
+                      Without Canadian uranium, research facilities, and scientific expertise, nuclear development would have been slower and more difficult, placing Canada among the key nations shaping the nuclear age.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -784,6 +817,17 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                     </p>
                   </div>
                 </div>
+                <div className="relative group mt-8">
+                  <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                  <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                    <h3 className="text-3xl font-bold text-slate-900 mb-4">Continuity and Change</h3>
+                    <p className="text-slate-700 leading-relaxed">
+                      There was continuity in Canada’s nuclear research after World War II, as scientists continued to study reactors and nuclear technology. 
+                      However, there was significant change: the focus shifted from military applications toward peaceful uses such as electricity generation and medical research. 
+                      This transition reflects changing priorities in Canadian society and government policy.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -840,6 +884,16 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                     </div>
                   </div>
                 </div>
+                <div className="relative group mt-8">
+                  <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                  <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                    <h3 className="text-3xl font-bold text-slate-900 mb-4">Cause and Consequence</h3>
+                    <p className="text-slate-700 leading-relaxed">
+                      The post-war uranium boom was caused by continued military demand from the United States during the early Cold War. 
+                      Mining communities experienced rapid economic growth, but when demand declined, these towns faced economic challenges, showing how global political decisions directly affected local Canadian communities.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -880,6 +934,16 @@ Legacy: Canada's commitment to peaceful nuclear technology demonstrates that nat
                         This cemented Canada's commitment to preventing the spread of nuclear weapons while promoting peaceful nuclear technology worldwide.
                       </p>
                     </div>
+                  </div>
+                </div>
+                <div className="relative group mt-8">
+                  <div className="absolute -inset-1 bg-slate-900 rounded-3xl blur-xl opacity-5 group-hover:opacity-10 transition duration-500"></div>
+                  <div className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl">
+                    <h3 className="text-3xl font-bold text-slate-900 mb-4">Ethical Dimension</h3>
+                    <p className="text-slate-700 leading-relaxed">
+                      The development of nuclear weapons raised serious ethical questions about the use of scientific knowledge and the responsibility of governments. 
+                      Canada’s decision to restrict nuclear materials to peaceful purposes reflects an ethical response to the destructive potential of nuclear warfare and highlights the importance of balancing scientific progress with moral responsibility.
+                    </p>
                   </div>
                 </div>
               </div>
